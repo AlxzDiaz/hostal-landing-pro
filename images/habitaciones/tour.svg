@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" width="700" height="520">
+  <rect width="700" height="520" fill="#1D3B33"/>
+  <circle cx="500" cy="170" r="70" fill="#E9B44C" opacity=".85"/>
+  <path d="M0 300c60-40 120-60 180-40 70-60 150-70 220-20 80-50 200-40 300 10v270H0Z" fill="#2F5D50"/>
+  <path d="M0 360h700v160H0Z" fill="#152A23"/>
+  <path d="M0 380c120 10 240-10 350 0s230 10 350 0" stroke="#3E8E6E" stroke-width="4" fill="none" opacity=".6"/>
+  <path d="M230 400h200l-30 26H260Z" fill="#B4501A"/>
+  <path d="M300 400v-30" stroke="#F7F3EA" stroke-width="5" stroke-linecap="round"/>
+  <text x="350" y="490" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#E9B44C">Tambopata</text>
+</svg>

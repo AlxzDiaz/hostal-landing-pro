@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es" data-cielo="dia">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- SEO: cambia título, descripción e imagen por cada cliente -->
+  <title>Casa Lupuna · Hostal y campamento base para Tambopata en Puerto Maldonado</title>
+  <meta name="description" content="Hostal a 3 cuadras de la Plaza de Armas de Puerto Maldonado: cuartos con aire acondicionado, piscina, desayuno y tours a Tambopata. Arma tu viaje día por día y reserva directo por WhatsApp.">
+  <meta name="theme-color" content="#121C18">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Casa Lupuna · Tu campamento base en la Amazonía">
+  <meta property="og:description" content="Elige tu cuarto, arma tu viaje día por día y envía tu pase por WhatsApp. Recojo del aeropuerto gratis desde 3 noches.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1598338332181-c7a78afa1198?auto=format&fit=crop&w=1200&h=630&q=70">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Tipografías: Bricolage Grotesque (títulos de póster y texto) + Caveat (notas a mano) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Librería: Phosphor Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#cuartos">Saltar a los cuartos</a>
+
+  <!-- ============ NAVEGACIÓN FLOTANTE ============ -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="logo">
+      <img src="images/logo.svg" width="40" height="40" alt="">
+      <span class="logo__nombre" data-config="nombre">Casa Lupuna</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul class="nav__links">
+        <li><a href="#cuartos">Cuartos</a></li>
+        <li><a href="#viaje">Arma tu viaje</a></li>
+        <li><a href="#casa">La casa</a></li>
+        <li><a href="#muro">Viajeros</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+      </ul>
+    </nav>
+    <button class="cielo-btn" id="cielo-btn" type="button" aria-pressed="false">
+      <i class="ph-fill ph-moon-stars" aria-hidden="true"></i><span class="sr-only">Modo noche</span>
+    </button>
+    <button class="btn btn--rojo nav__pase" type="button" data-abrir-pase>
+      <i class="ph ph-ticket" aria-hidden="true"></i><span>Mi pase</span><b class="contador" data-contador hidden>0</b>
+    </button>
+  </header>
+
+  <main>
+    <!-- ============ PORTADA EN VIVO ============ -->
+    <section class="portada" id="inicio">
+      <div class="portada__fondo" aria-hidden="true">
+        <img id="portada-img" alt="" fetchpriority="high" data-fallback="images/habitaciones/instalacion.svg">
+      </div>
+      <div class="portada__contenido">
+        <p class="en-vivo" aria-live="polite">
+          <span class="en-vivo__punto" aria-hidden="true"></span>
+          <span>Ahora en <span data-config="ciudad">Puerto Maldonado</span></span>
+          <b id="hora-lima"></b>
+          <span class="en-vivo__clima" id="clima" hidden></span>
+        </p>
+        <h1>Tu campamento base en la <span class="marcador">Amazonía</span></h1>
+        <p class="portada__frase" id="frase"></p>
+        <ul class="sellos-portada" id="ratings"></ul>
+      </div>
+
+      <!-- Buscador con forma de pase de abordaje -->
+      <div class="ticket-sombra">
+      <form class="ticket buscador" id="buscador" novalidate>
+        <div class="ticket__talon" aria-hidden="true">
+          <span>Pase de entrada</span>
+          <b>PEM</b>
+        </div>
+        <div class="buscador__campos">
+          <label class="campo-ticket">
+            <span>Llegada</span>
+            <input type="date" data-fecha="llegada" required>
+          </label>
+          <label class="campo-ticket">
+            <span>Salida</span>
+            <input type="date" data-fecha="salida" required>
+          </label>
+          <div class="campo-ticket">
+            <span id="viajeros-label">Viajeros</span>
+            <div class="stepper" role="group" aria-labelledby="viajeros-label">
+              <button type="button" data-huespedes="-1" aria-label="Un viajero menos"><i class="ph ph-minus"></i></button>
+              <output data-huespedes-n>2</output>
+              <button type="button" data-huespedes="1" aria-label="Un viajero más"><i class="ph ph-plus"></i></button>
+            </div>
+          </div>
+          <button class="btn btn--rojo btn--lg" type="submit"><span>Ver cuartos</span><i class="ph ph-arrow-down" aria-hidden="true"></i></button>
+        </div>
+        <p class="buscador__pie">
+          <span data-resumen-fechas></span>
+          <span class="chip-promo" id="chip-promo" hidden><i class="ph-fill ph-leaf" aria-hidden="true"></i><span id="promo-txt"></span></span>
+        </p>
+      </form>
+      </div>
+    </section>
+
+    <!-- ============ CUARTOS ============ -->
+    <section class="seccion" id="cuartos">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">01</span>
+          <div>
+            <p class="kicker">Cuartos</p>
+            <h2>¿Quién <span class="marcador">viaja</span>?</h2>
+          </div>
+          <p class="nota-mano">Elige y te recomendamos el cuarto ideal ↓</p>
+        </header>
+
+        <div class="quien" id="quien" role="radiogroup" aria-label="¿Quién viaja?"></div>
+        <p class="recomendacion" id="recomendacion" aria-live="polite" hidden></p>
+
+        <div class="showroom">
+          <div class="showroom__lista" id="lista-cuartos" role="tablist" aria-label="Cuartos" aria-orientation="vertical"></div>
+
+          <article class="visor carta" id="visor" role="tabpanel" tabindex="-1">
+            <div class="visor__fotos">
+              <button class="visor__principal" type="button" id="visor-foto" aria-label="Ver la otra foto">
+                <img id="visor-img" alt="" width="800" height="600">
+              </button>
+              <button class="polaroid" type="button" id="visor-polaroid" aria-label="Ver la otra foto">
+                <img id="visor-img2" alt="" width="800" height="600">
+              </button>
+              <span class="sello sello--rojo visor__sello" id="visor-etiqueta" hidden></span>
+            </div>
+            <div class="visor__info">
+              <h3 id="visor-nombre"></h3>
+              <ul class="datos" id="visor-datos"></ul>
+              <p class="visor__desc" id="visor-desc"></p>
+              <ul class="amenidades" id="visor-amenidades"></ul>
+
+              <!-- Recibo de la estadía -->
+              <div class="recibo">
+                <p class="recibo__titulo"><span data-resumen-fechas></span><button class="link-btn" type="button" data-ir-buscador>Cambiar</button></p>
+                <ul class="recibo__noches" id="visor-noches"></ul>
+                <div id="visor-total"></div>
+              </div>
+
+              <div class="visor__acciones">
+                <div class="stepper" role="group" aria-label="Cantidad">
+                  <button type="button" id="visor-menos" aria-label="Una menos"><i class="ph ph-minus"></i></button>
+                  <output id="visor-cantidad">1</output>
+                  <button type="button" id="visor-mas" aria-label="Una más"><i class="ph ph-plus"></i></button>
+                </div>
+                <button class="btn btn--rojo btn--lg" type="button" id="visor-agregar"><i class="ph ph-ticket" aria-hidden="true"></i><span>Agregar a mi pase</span></button>
+              </div>
+              <p class="visor__pie">
+                <span id="visor-unidades"></span>
+                <a id="visor-preguntar" href="#" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>¿Está libre? Pregúntanos</a>
+                <button class="link-btn" type="button" id="visor-compartir"><i class="ph ph-share-network" aria-hidden="true"></i><span>Compartir</span></button>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ARMA TU VIAJE ============ -->
+    <section class="seccion seccion--mapa" id="viaje">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">02</span>
+          <div>
+            <p class="kicker">Tours a Tambopata</p>
+            <h2>Arma tu viaje <span class="marcador marcador--azul">día por día</span></h2>
+          </div>
+          <p class="nota-mano">Toca un tour o un día libre. Tu plan viaja en el mensaje.</p>
+        </header>
+
+        <div class="viaje">
+          <ul class="tours" id="lista-tours"></ul>
+
+          <div class="itinerario carta" id="itinerario">
+            <header class="itinerario__head">
+              <div>
+                <p class="kicker">Tu itinerario</p>
+                <p class="itinerario__fechas" data-resumen-fechas></p>
+              </div>
+              <button class="link-btn" type="button" data-ir-buscador>Cambiar fechas</button>
+            </header>
+            <ol class="dias" id="dias"></ol>
+            <p class="itinerario__aviso" id="itinerario-aviso" hidden></p>
+            <footer class="itinerario__pie">
+              <span>Tours: <b id="itinerario-total">S/ 0</b></span>
+              <span class="itinerario__op">con <span id="operador"></span>, operador autorizado</span>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ UN DÍA EN LA CASA ============ -->
+    <section class="seccion" id="casa">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">03</span>
+          <div>
+            <p class="kicker">La casa</p>
+            <h2>Un día cualquiera en <span class="marcador">Casa Lupuna</span></h2>
+          </div>
+          <p class="nota-mano">Desliza: de las 7 a. m. a la noche →</p>
+        </header>
+      </div>
+      <ol class="horas" id="horas"></ol>
+      <div class="container">
+        <ul class="servicios" id="servicios"></ul>
+        <ul class="directo" id="directo"></ul>
+      </div>
+    </section>
+
+    <!-- ============ MURO DE VIAJEROS ============ -->
+    <section class="seccion seccion--corcho" id="muro">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">04</span>
+          <div>
+            <p class="kicker">Viajeros</p>
+            <h2>Lo que nos dejaron en <span class="marcador">el muro</span></h2>
+          </div>
+          <div class="calificaciones" id="calificaciones"></div>
+        </header>
+        <ul class="muro" id="testimonios"></ul>
+      </div>
+    </section>
+
+    <!-- ============ UBICACIÓN: LÍNEA LUPUNA ============ -->
+    <section class="seccion" id="ubicacion">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">05</span>
+          <div>
+            <p class="kicker">Ubicación</p>
+            <h2>Todo queda a <span class="marcador">pocos pasos</span></h2>
+          </div>
+          <p class="nota-mano" id="direccion"></p>
+        </header>
+        <ol class="linea" id="linea"></ol>
+        <div class="ubicacion">
+          <iframe class="mapa carta" id="mapa" title="Mapa de ubicación del hostal" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="ubicacion__acciones">
+            <a class="btn btn--tinta" id="como-llegar" href="#" target="_blank" rel="noopener"><i class="ph ph-navigation-arrow" aria-hidden="true"></i>Cómo llegar</a>
+            <a class="btn btn--claro" data-wa="Hola, llego a Puerto Maldonado y quiero que me recojan del aeropuerto. Mi vuelo es: " href="#"><i class="ph ph-airplane-landing" aria-hidden="true"></i>Pedir recojo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PREGUNTAS (CHAT) ============ -->
+    <section class="seccion seccion--mapa" id="preguntas">
+      <div class="container">
+        <header class="cabecera">
+          <span class="cabecera__num" aria-hidden="true">06</span>
+          <div>
+            <p class="kicker">Preguntas</p>
+            <h2>Pregúntale a <span class="marcador" data-anfitriona>Rosa</span></h2>
+          </div>
+          <p class="nota-mano">Toca una pregunta y te responde al toque.</p>
+        </header>
+
+        <div class="preguntas">
+          <div class="chat carta">
+            <header class="chat__head">
+              <span class="chat__avatar" id="chat-avatar" aria-hidden="true">R</span>
+              <span><b data-anfitriona>Rosa</b><small><span id="chat-rol"></span> · <span class="en-linea">en línea las 24 h</span></small></span>
+            </header>
+            <div class="chat__mensajes" id="chat" aria-live="polite"></div>
+            <div class="chat__opciones" id="chat-opciones"></div>
+          </div>
+
+          <div class="letra-chica">
+            <h3>La letra chica <span class="nota-mano">(pero clara)</span></h3>
+            <ul class="politicas" id="politicas"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CIERRE ============ -->
+    <section class="cierre">
+      <div class="container">
+        <p class="cierre__marca" aria-hidden="true" data-config="nombre">Casa Lupuna</p>
+        <div class="cierre__caja">
+          <h2>¿Aún sin fechas? <span class="marcador">Te armamos el viaje.</span></h2>
+          <p>Cuéntanos cuántos días tienes y qué quieres ver. Te respondemos con cuarto y tours recomendados, sin compromiso.</p>
+          <a class="btn btn--wa btn--lg" data-wa="Hola, quiero ayuda para armar mi viaje a Puerto Maldonado. Tengo estos días: " href="#"><i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i>Escribir por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <a href="#inicio" class="logo">
+          <img src="images/logo.svg" width="40" height="40" alt="">
+          <span class="logo__nombre" data-config="nombre">Casa Lupuna</span>
+        </a>
+        <p class="footer__desc" id="footer-direccion"></p>
+        <div class="redes">
+          <a data-red="facebook" href="#" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph-fill ph-facebook-logo" aria-hidden="true"></i></a>
+          <a data-red="instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+          <a data-red="tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph-fill ph-tiktok-logo" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <ul class="footer__lista" id="footer-horarios"></ul>
+      <ul class="footer__lista">
+        <li><i class="ph ph-phone" aria-hidden="true"></i><a id="tel" href="#"><span data-config="telefono"></span></a></li>
+        <li><i class="ph ph-whatsapp-logo" aria-hidden="true"></i><a data-wa href="#">Escríbenos por WhatsApp</a></li>
+        <li><i class="ph ph-envelope-simple" aria-hidden="true"></i><a id="email" href="#"><span data-config="email"></span></a></li>
+      </ul>
+    </div>
+    <div class="container footer__legal">
+      <span>© <span id="anio">2026</span> <span data-config="nombre">Casa Lupuna</span> · <span data-config="ciudad"></span>, <span data-config="region"></span></span>
+      <span>Hecho con <i class="ph-fill ph-heart" aria-hidden="true"></i> en la selva</span>
+    </div>
+  </footer>
+
+  <!-- ============ DOCK (CELULAR) ============ -->
+  <nav class="dock" aria-label="Accesos rápidos">
+    <a href="#cuartos"><i class="ph ph-bed" aria-hidden="true"></i>Cuartos</a>
+    <a href="#viaje"><i class="ph ph-map-trifold" aria-hidden="true"></i>Viaje</a>
+    <button type="button" class="dock__pase" data-abrir-pase>
+      <i class="ph-fill ph-ticket" aria-hidden="true"></i><span>Mi pase</span><b class="contador" data-contador hidden>0</b>
+    </button>
+    <a href="#preguntas"><i class="ph ph-chats-circle" aria-hidden="true"></i>Preguntas</a>
+    <a data-wa href="#"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>WhatsApp</a>
+  </nav>
+
+  <!-- ============ MI PASE (RESERVA) ============ -->
+  <dialog class="pase" id="pase" aria-labelledby="pase-titulo">
+    <form class="pase__panel" id="form-pase" novalidate>
+      <header class="pase__head">
+        <div>
+          <p class="pase__codigo" id="pase-codigo"></p>
+          <h2 id="pase-titulo">Pase de entrada</h2>
+          <p class="pase__ruta"><b id="pase-origen">Tu ciudad</b><i class="ph ph-airplane-in-flight" aria-hidden="true"></i><b>PEM · <span data-config="nombre"></span></b></p>
+        </div>
+        <button class="cerrar" type="button" data-cerrar aria-label="Cerrar"><i class="ph ph-x" aria-hidden="true"></i></button>
+      </header>
+
+      <div class="pase__cuerpo">
+        <div class="pase__fechas">
+          <label class="campo-ticket"><span>Llegada</span><input type="date" data-fecha="llegada"></label>
+          <label class="campo-ticket"><span>Salida</span><input type="date" data-fecha="salida"></label>
+          <div class="campo-ticket">
+            <span id="viajeros-label-2">Viajeros</span>
+            <div class="stepper" role="group" aria-labelledby="viajeros-label-2">
+              <button type="button" data-huespedes="-1" aria-label="Un viajero menos"><i class="ph ph-minus"></i></button>
+              <output data-huespedes-n>2</output>
+              <button type="button" data-huespedes="1" aria-label="Un viajero más"><i class="ph ph-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <p class="pase__resumen" data-resumen-fechas></p>
+        <div class="promo-progreso" id="promo-progreso" hidden></div>
+
+        <h3 class="pase__sub">Cuartos</h3>
+        <ul class="items" id="items-cuartos"></ul>
+        <div class="vacio" id="vacio">
+          <p>Aún no elegiste cuarto.</p>
+          <button class="btn btn--claro" type="button" data-ir="#cuartos">Ver cuartos</button>
+        </div>
+        <p class="aviso" id="aviso-capacidad" role="alert"></p>
+
+        <div id="bloque-tours">
+          <h3 class="pase__sub">Itinerario</h3>
+          <ul class="items" id="items-tours"></ul>
+        </div>
+
+        <div id="checkout">
+          <fieldset class="extras" id="bloque-extras">
+            <legend class="pase__sub">Extras</legend>
+            <div id="extras"></div>
+          </fieldset>
+
+          <h3 class="pase__sub">Pasajero</h3>
+          <label class="campo">Nombre de quien reserva
+            <input name="nombre" autocomplete="name" required placeholder="Ej: Ana Torres">
+          </label>
+          <div class="campo-fila">
+            <label class="campo">Documento
+              <select name="doc"><option>DNI</option><option>Pasaporte</option><option>Carné de extranjería</option></select>
+            </label>
+            <label class="campo">Número
+              <input name="docnum" autocomplete="off" required placeholder="Ej: 45678912">
+            </label>
+          </div>
+          <label class="campo">¿Desde dónde vienes?
+            <input name="procedencia" id="procedencia" autocomplete="address-level2" placeholder="Ej: Lima">
+          </label>
+          <div class="campo-fila">
+            <label class="campo">Llegas en
+              <select name="llegaPor"><option>Avión</option><option>Bus</option><option>Auto propio</option><option>Aún no sé</option></select>
+            </label>
+            <label class="campo">Hora aprox.
+              <input name="hora" type="time">
+            </label>
+          </div>
+          <label class="campo" id="campo-vuelo">N.° de vuelo (opcional)
+            <input name="vuelo" autocomplete="off" placeholder="Ej: LA2071">
+          </label>
+          <label class="campo">Pago del adelanto
+            <select name="pago" id="select-pago"></select>
+          </label>
+          <label class="campo">Notas (opcional)
+            <textarea name="notas" rows="2" placeholder="Ej: es nuestro aniversario, llegamos con una bebé"></textarea>
+          </label>
+          <h3 class="pase__sub">Resumen</h3>
+          <dl class="totales" id="resumen"></dl>
+        </div>
+      </div>
+
+      <footer class="pase__talon" id="pase-pie">
+        <dl class="totales totales--pie" id="totales"></dl>
+        <button class="btn btn--wa btn--lg btn--bloque" type="submit"><i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i>Enviar mi pase por WhatsApp</button>
+        <p class="pase__nota"><i class="ph ph-lock-simple" aria-hidden="true"></i><span id="nota-pago"></span></p>
+        <svg class="codigo-barras" id="codigo-barras" aria-hidden="true" preserveAspectRatio="none"></svg>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- ============ AVISO (toast) ============ -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

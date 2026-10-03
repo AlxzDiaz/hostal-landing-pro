@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#ECE3D0"/>
+  <rect x="470" y="110" width="200" height="230" rx="12" fill="#DDEBE2"/>
+  <path d="M570 110v230M470 225h200" stroke="#F7F3EA" stroke-width="10"/>
+  <path d="M500 330c20-60 60-90 70-150 10 60 50 90 70 150Z" fill="#3E8E6E" opacity=".5"/>
+  <rect x="150" y="300" width="380" height="120" rx="18" fill="#FFFDF8"/>
+  <rect x="150" y="250" width="380" height="80" rx="18" fill="#2F5D50"/>
+  <rect x="180" y="270" width="120" height="50" rx="14" fill="#F7F3EA"/>
+  <rect x="380" y="270" width="120" height="50" rx="14" fill="#F7F3EA"/>
+  <rect x="150" y="360" width="380" height="60" rx="10" fill="#B4501A"/>
+  <path d="M170 420v40M510 420v40" stroke="#1D3B33" stroke-width="12" stroke-linecap="round"/>
+  <text x="400" y="540" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#1D3B33">Habitación</text>
+</svg>
