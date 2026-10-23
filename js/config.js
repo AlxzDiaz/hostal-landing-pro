@@ -16,7 +16,10 @@ const CONFIG = {
   desde: 2015,
 
   // WhatsApp: código de país + número, sin "+", espacios ni guiones
-  whatsapp: "51999999999",
+  whatsapp: "51944870026",
+  // Demo del portafolio ALXZ//: marca los mensajes con "[Demo ALXZ//]" y muestra el aviso.
+  // Para un cliente real: pon su número arriba y demo: false.
+  demo: true,
   telefono: "+51 999 999 999",
   email: "reservas@casalupuna.pe",
 
